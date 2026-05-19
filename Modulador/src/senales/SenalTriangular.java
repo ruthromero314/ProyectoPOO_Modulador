@@ -9,10 +9,19 @@ package senales;
  * @author Alumnos
  */
 public class SenalTriangular extends Senal{
+    private double A;
+    private double f;
+
+    public SenalTriangular(double A, double f) {
+        this.A = A;
+        this.f = f;
+    }
 
     @Override
     public void generar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < N; i++) {
+            // Aplicamos la fórmula basada en el arco seno
+            valores[i] = (2 * A / Math.PI) * Math.asin(Math.sin(2 * Math.PI * f * tiempo[i]));
+        }
     }
-    
 }
