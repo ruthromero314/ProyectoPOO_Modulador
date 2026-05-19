@@ -207,22 +207,22 @@ public class GUI extends javax.swing.JFrame {
         g.fillRect(0, 0, w, h);
 
         //separación entre señales
-        int separacion = 70;
+        int separacion = 80;
 
-        // títulos
+        //títulos
         g.setColor(Color.BLACK);
 
-        g.drawString("Moduladora", 10, 20);
         dibujar(g, senalModuladora, 40, Color.BLUE);
-
-        g.drawString("Portadora", 10, 20 + separacion);
+        g.drawString("Moduladora", 20, 10);
+        
         dibujar(g, senalPortadora, 40 + separacion, Color.RED);
+        g.drawString("Portadora", 20, 10 + separacion);
 
-        g.drawString("AM", 10, 20 + separacion * 2);
         dibujar(g, senalAM, 40 + separacion * 2, Color.GREEN);
+        g.drawString("AM", 20, 10 + separacion * 2);
 
-        g.drawString("FM", 10, 20 + separacion * 3);
         dibujar(g, senalFM, 40 + separacion * 3, Color.MAGENTA);
+        g.drawString("FM", 20, 10 + separacion * 3);
     }
     
     private void dibujar(Graphics g, double[] datos, int offsetY, Color color) {
