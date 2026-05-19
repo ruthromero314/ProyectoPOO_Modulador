@@ -163,19 +163,12 @@ public class GUI extends javax.swing.JFrame {
         double indice = Double.parseDouble(tIndice.getText());
 
         Senal moduladora;//inicializar
-        switch (cbTipoSenal.getSelectedIndex()) {
-            case 0:
-                moduladora = new SenalSenoidal(A, fm);
-                break;
-            case 1:
-                moduladora = new SenalCuadrada(A, fm);
-                break;
-            case 2:
-                moduladora = new SenalTriangular(A, fm);
-                break;
-            default:
-                moduladora = new SenalSenoidal(A, fm);
-        }
+        moduladora = switch (cbTipoSenal.getSelectedIndex()) {
+            case 0 -> new SenalSenoidal(A, fm);
+            case 1 -> new SenalCuadrada(A, fm);
+            case 2 -> new SenalTriangular(A, fm);
+            default -> new SenalSenoidal(A, fm);
+        };
 
         Senal portadora = new SenalSenoidal(1, fc);//inicializar
 
@@ -235,7 +228,7 @@ public class GUI extends javax.swing.JFrame {
         //señal
         g.setColor(color);
 
-        int escalaY = 25;
+        int escalaY = 20;
 
         int prevX = 0;
         int prevY = offsetY;
