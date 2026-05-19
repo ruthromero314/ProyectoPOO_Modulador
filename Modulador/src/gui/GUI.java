@@ -15,7 +15,7 @@ import senales.*;
 
 /**
  *
- * @author alumnos
+ * @author Ruth Romero
  */
 public class GUI extends javax.swing.JFrame {
     private double[] senalModuladora;

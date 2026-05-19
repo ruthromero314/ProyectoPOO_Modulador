@@ -6,7 +6,7 @@ package senales;
 
 /**
  *
- * @author Alumnos
+ * @author Ruth Romero
  */
 public class SenalSenoidal extends Senal {
 

@@ -6,7 +6,7 @@ package moduladore;
 
 /**
  *
- * @author Alumnos
+ * @author Ruth Romero
  */
 public class ModuladorFM extends Modulador {
     private double k;

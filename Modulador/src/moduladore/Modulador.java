@@ -6,7 +6,7 @@ package moduladore;
 
 /**
  *
- * @author alumnos
+ * @author Ruth Romero
  */
 public abstract class Modulador {
     public abstract double[] modular(double[] portadora,double[] moduladora,double[] tiempo);
