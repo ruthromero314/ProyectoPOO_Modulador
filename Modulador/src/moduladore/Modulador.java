@@ -2,19 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modulador;
+package moduladore;
 
 /**
  *
- * @author Alumnos
+ * @author alumnos
  */
-public class ModuladorAM {
-    private double m;
-
-    public ModuladorAM(double m) {
-        this.m = m;
-    }
-    
-    
-    
+public abstract class Modulador {
+    public abstract double[] modular(double[] portadora,double[] moduladora,double[] tiempo);
 }
