@@ -8,6 +8,11 @@ package senales;
  *
  * @author Alumnos
  */
-public class SenalTriangular {
+public class SenalTriangular extends Senal{
+
+    @Override
+    public void generar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
