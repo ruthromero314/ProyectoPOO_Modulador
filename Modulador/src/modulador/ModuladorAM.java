@@ -8,17 +8,13 @@ package modulador;
  *
  * @author Alumnos
  */
-public class ModuladorAM extends Modulador{
+public class ModuladorAM {
     private double m;
 
     public ModuladorAM(double m) {
         this.m = m;
     }
     
-    @Override
-    public double[] modular(double[] portadora, double[] moduladora, double[] tiempo) {
-        
     
-    }
     
 }
