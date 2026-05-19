@@ -10,6 +10,10 @@ package moduladore;
  */
 public class ModuladorFM extends Modulador {
     private double k;
+
+    public ModuladorFM(double k) {
+        this.k=k;
+    }
     
     @Override
     public double[] modular(double[] portadora, double[] moduladora, double[] tiempo) {

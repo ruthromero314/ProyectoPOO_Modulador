@@ -36,7 +36,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="tIndice" max="32767" attributes="0"/>
+                          <Component id="tIndice" pref="279" max="32767" attributes="0"/>
                           <Component id="tFrecPort" alignment="0" max="32767" attributes="0"/>
                           <Component id="tFrecMod" alignment="0" max="32767" attributes="0"/>
                           <Component id="tAmpMod" alignment="0" max="32767" attributes="0"/>
@@ -83,8 +83,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bModular" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="panel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <Component id="panel" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -154,12 +154,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tFrecMod">
       <Properties>
-        <Property name="text" type="java.lang.String" value="50"/>
+        <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tFrecPort">
       <Properties>
-        <Property name="text" type="java.lang.String" value="100"/>
+        <Property name="text" type="java.lang.String" value="10"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tIndice">
@@ -177,7 +177,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="241" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="336" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

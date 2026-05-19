@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+
+
 package gui;
-import moduladore.Modulador.*;
 import java.awt.Graphics;
+import java.awt.Color;
 import moduladore.Modulador;
 import moduladore.ModuladorAM;
 import moduladore.ModuladorFM;
@@ -17,8 +20,8 @@ import senales.*;
 public class GUI extends javax.swing.JFrame {
     private double[] senalModuladora;
     private double[] senalPortadora;
-    private double[] senalSalidaAM;
-    private double[] senalSalidaFM;
+    private double[] senalAM;
+    private double[] senalFM;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
 
@@ -76,9 +79,9 @@ public class GUI extends javax.swing.JFrame {
 
         tAmpMod.setText("1");
 
-        tFrecMod.setText("50");
+        tFrecMod.setText("1");
 
-        tFrecPort.setText("100");
+        tFrecPort.setText("10");
 
         tIndice.setText("0.5");
 
@@ -90,7 +93,7 @@ public class GUI extends javax.swing.JFrame {
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,7 +111,7 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tIndice)
+                            .addComponent(tIndice, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                             .addComponent(tFrecPort, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tFrecMod, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tAmpMod, javax.swing.GroupLayout.Alignment.LEADING))
@@ -144,8 +147,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(bModular, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -175,6 +178,8 @@ public class GUI extends javax.swing.JFrame {
 
         Senal portadora = new SenalSenoidal(1, fc);//inicializar
 
+        moduladora.generar();
+        portadora.generar();
         
         senalModuladora = moduladora.getValores();//cargar
         senalPortadora = portadora.getValores();//cargar
@@ -183,18 +188,71 @@ public class GUI extends javax.swing.JFrame {
         Modulador modFM = new ModuladorFM(indice);//inicializar modulador FM
         
         //modular AM
-        senalSalidaAM = modAM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
+        senalAM = modAM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
         //modular FM
-        senalSalidaFM = modFM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
+        senalFM = modFM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
         
-        
-        
-        
-        
-        
-        
+        dibujarSenales();
     }//GEN-LAST:event_bModularActionPerformed
+    
+    private void dibujarSenales() {
+        Graphics g = panel.getGraphics();
 
+        int w = panel.getWidth();
+        int h = panel.getHeight();
+
+        //fondo blanco
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, w, h);
+
+        //separación entre señales
+        int separacion = 70;
+
+        // títulos
+        g.setColor(Color.BLACK);
+
+        g.drawString("Moduladora", 10, 20);
+        dibujar(g, senalModuladora, 40, Color.BLUE);
+
+        g.drawString("Portadora", 10, 20 + separacion);
+        dibujar(g, senalPortadora, 40 + separacion, Color.RED);
+
+        g.drawString("AM", 10, 20 + separacion * 2);
+        dibujar(g, senalAM, 40 + separacion * 2, Color.GREEN);
+
+        g.drawString("FM", 10, 20 + separacion * 3);
+        dibujar(g, senalFM, 40 + separacion * 3, Color.MAGENTA);
+    }
+    
+    private void dibujar(Graphics g, double[] datos, int offsetY, Color color) {
+        int w = panel.getWidth();
+
+        //eje horizontal
+        g.setColor(Color.LIGHT_GRAY);
+        g.drawLine(0, offsetY, w, offsetY);
+
+        //señal
+        g.setColor(color);
+
+        int escalaY = 25;
+
+        int prevX = 0;
+        int prevY = offsetY;
+
+        for (int i = 0; i < datos.length; i++) {
+
+            int x = i * w / datos.length;
+            int y = offsetY - (int)(datos[i] * escalaY);
+
+            g.drawLine(prevX, prevY, x, y);
+
+            prevX = x;
+            prevY = y;
+        }
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
