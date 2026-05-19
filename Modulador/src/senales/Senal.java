@@ -28,4 +28,8 @@ public abstract class Senal {
         return valores;
     }
 
+    public double[] getTiempo() {
+        return tiempo;
+    }
+    
 }
