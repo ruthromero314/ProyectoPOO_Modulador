@@ -9,10 +9,21 @@ package senales;
  * @author Alumnos
  */
 public class SenalCuadrada extends Senal{
+    private double A;
+    private double f;
+
+    public SenalCuadrada(double A, double f) {
+        this.A = A;
+        this.f = f;
+    }
 
     @Override
     public void generar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < N; i++) {
+            double arg=Math.sin(2 * Math.PI * f * tiempo[i]);
+            if(arg>=0){
+                valores[i] = A;
+            }else valores[i] = -A;
+        }
     }
-    
 }
