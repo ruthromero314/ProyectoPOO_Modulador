@@ -8,6 +8,6 @@ package modulador;
  *
  * @author alumnos
  */
-public class Modulador {
-    
+public abstract class Modulador {
+    public abstract double[] modular(double[] portadora,double[] moduladora,double[] tiempo);
 }
