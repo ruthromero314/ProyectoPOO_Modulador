@@ -5,6 +5,9 @@
 package gui;
 import moduladore.Modulador.*;
 import java.awt.Graphics;
+import moduladore.Modulador;
+import moduladore.ModuladorAM;
+import moduladore.ModuladorFM;
 import senales.*;
 
 /**
@@ -14,8 +17,8 @@ import senales.*;
 public class GUI extends javax.swing.JFrame {
     private double[] senalModuladora;
     private double[] senalPortadora;
-    private double[] senalSalida;
-    
+    private double[] senalSalidaAM;
+    private double[] senalSalidaFM;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
 
@@ -155,35 +158,34 @@ public class GUI extends javax.swing.JFrame {
         double fc = Double.parseDouble(tFrecPort.getText());
         double indice = Double.parseDouble(tIndice.getText());
 
-        Senal moduladora;
-
+        Senal moduladora;//inicializar
         switch (cbTipoSenal.getSelectedIndex()) {
-
             case 0:
                 moduladora = new SenalSenoidal(A, fm);
                 break;
-
             case 1:
                 moduladora = new SenalCuadrada(A, fm);
                 break;
-
             case 2:
                 moduladora = new SenalTriangular(A, fm);
                 break;
-
             default:
                 moduladora = new SenalSenoidal(A, fm);
         }
 
-
-        Senal portadora = new SenalSenoidal(1, fc);
-
+        Senal portadora = new SenalSenoidal(1, fc);//inicializar
 
         
+        senalModuladora = moduladora.getValores();//cargar
+        senalPortadora = portadora.getValores();//cargar
         
+        Modulador modAM = new ModuladorAM(indice);//inicializar modulador AM
+        Modulador modFM = new ModuladorFM(indice);//inicializar modulador FM
         
-        
-        
+        //modular AM
+        senalSalidaAM = modAM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
+        //modular FM
+        senalSalidaFM = modFM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
         
         
         
