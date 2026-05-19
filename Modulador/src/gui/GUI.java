@@ -69,6 +69,8 @@ public class GUI extends javax.swing.JFrame {
         bModular.setBackground(new java.awt.Color(102, 153, 255));
         bModular.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         bModular.setText("MODULAR");
+        bModular.setToolTipText("");
+        bModular.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bModular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bModularActionPerformed(evt);
