@@ -2,4 +2,4 @@
 
 
 ## GUI
-![Diagrama de Clases UML](GUI.png)
+![Diagrama de Clases UML](GUI1.png)
