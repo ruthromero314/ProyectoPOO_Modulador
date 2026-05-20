@@ -27,12 +27,20 @@ jobs:
 
     - name: Renderizar diagrama UML a PNG
       run: |
+        # Genera el diagrama. PlantUML creará un archivo llamado diagrama.png basado en diagrama.puml
         java -jar plantuml.jar diagrama.puml -tpng
+        
+        # Verificamos si se creó correctamente
+        if [ ! -f "diagrama.png" ]; then
+          echo "Error: diagrama.png no fue generado."
+          exit 1
+        fi
 
     - name: Subir imagen al repositorio
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        # Añadimos el archivo solo si existe
         git add diagrama.png
-        git commit -m "Bot: Actualiza imagen del diagrama UML [skip ci]" || echo "No hay cambios en la imagen"
+        git commit -m "Bot: Actualiza imagen del diagrama UML [skip ci]" || echo "No hay cambios para subir"
         git push
