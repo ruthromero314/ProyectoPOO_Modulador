@@ -27,6 +27,9 @@ jobs:
 
     - name: Renderizar diagrama UML a PNG
       run: |
+        # Busca el archivo .puml en cualquier subcarpeta y lo compila
+        java -jar plantuml.jar $(find . -name "diagrama.puml") -tpng
+
         # Genera el diagrama. PlantUML creará un archivo llamado diagrama.png basado en diagrama.puml
         java -jar plantuml.jar diagrama.puml -tpng
         
