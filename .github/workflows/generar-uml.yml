@@ -23,14 +23,17 @@ jobs:
 
     - name: Ingeniería Inversa (Java a PlantUML)
       run: |
+        # 1. Descargamos la herramienta que lee tus clases de NetBeans
         wget https://github.com/dbalek/puml-gen/releases/download/v1.0.0/puml-gen-1.0.0.jar -O puml-gen.jar
-        # Escaneamos la carpeta src de tu proyecto NetBeans dentro de Modulador
         java -jar puml-gen.jar Modulador/src/ > diagrama.puml
 
-    - name: Renderizar archivo .puml a imagen PNG (Oficial)
-      uses: plantuml/plantuml-github-action@main
-      with:
-        args: -tpng diagrama.puml
+    - name: Renderizar archivo .puml a imagen PNG (Método Directo)
+      run: |
+        # 2. Descargamos el motor oficial de PlantUML directamente en formato .jar
+        wget https://github.com/plantuml/plantuml/releases/download/v1.2024.3/plantuml-1.2024.3.jar -O plantuml.jar
+        
+        # 3. Lo ejecutamos nativamente con Java para generar la imagen
+        java -jar plantuml.jar diagrama.puml
 
     - name: Subir cambios al repositorio de GitHub
       run: |
