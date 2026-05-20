@@ -25,11 +25,12 @@ jobs:
       run: |
         # Descargamos una herramienta ligera de ingeniería inversa para Java
         wget https://github.com/dbalek/puml-gen/releases/download/v1.0.0/puml-gen-1.0.0.jar -O puml-gen.jar
+        java -jar puml-gen.jar Modulador/ > diagrama.puml
         
         # Escaneamos la carpeta src/ de tu proyecto (donde Apache organiza el código)
         # Esto generará un archivo de texto con la estructura UML
         java -jar puml-gen.jar src/ > diagrama.puml
-
+        
     - name: Renderizar archivo .puml a imagen PNG
       uses: cloudbees/plantuml-github-action@master
       with:
