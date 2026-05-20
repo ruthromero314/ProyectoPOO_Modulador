@@ -1,5 +1,0 @@
-@startuml
-class Modulador {
-  + void ejecutar()
-}
-@enduml

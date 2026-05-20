@@ -1,5 +1,5 @@
 # Proyecto POO - Modulador
 
 
-## Diagrama de Clases UML
+## GUI
 ![Diagrama de Clases UML](diagrama.png)
