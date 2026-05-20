@@ -27,7 +27,6 @@ jobs:
 
     - name: Renderizar diagrama UML a PNG
       run: |
-        # Lee tu archivo de texto dedicado y dibuja el PNG en la raíz
         java -jar plantuml.jar diagrama.puml -tpng
 
     - name: Subir imagen al repositorio
