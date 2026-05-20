@@ -3,13 +3,13 @@ name: Generar UML Automático
 on:
   push:
     branches:
-      - main  # Cambia a 'master' si tu rama principal se llama así
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Permite al script guardar el diagrama en tu repositorio
+      contents: write
 
     steps:
     - name: Descargar código del repositorio
@@ -23,18 +23,14 @@ jobs:
 
     - name: Ingeniería Inversa (Java a PlantUML)
       run: |
-        # Descargamos una herramienta ligera de ingeniería inversa para Java
         wget https://github.com/dbalek/puml-gen/releases/download/v1.0.0/puml-gen-1.0.0.jar -O puml-gen.jar
-        java -jar puml-gen.jar Modulador/ > diagrama.puml
-        
-        # Escaneamos la carpeta src/ de tu proyecto (donde Apache organiza el código)
-        # Esto generará un archivo de texto con la estructura UML
-        java -jar puml-gen.jar src/ > diagrama.puml
-        
-    - name: Renderizar archivo .puml a imagen PNG
-      uses: cloudbees/plantuml-github-action@master
+        # Escaneamos la carpeta src de tu proyecto NetBeans dentro de Modulador
+        java -jar puml-gen.jar Modulador/src/ > diagrama.puml
+
+    - name: Renderizar archivo .puml a imagen PNG (Oficial)
+      uses: plantuml/plantuml-github-action@main
       with:
-        args: diagrama.puml
+        args: -tpng diagrama.puml
 
     - name: Subir cambios al repositorio de GitHub
       run: |
