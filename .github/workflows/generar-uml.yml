@@ -25,22 +25,15 @@ jobs:
       run: |
         wget https://github.com/plantuml/plantuml/releases/download/v1.2024.4/plantuml-1.2024.4.jar -O plantuml.jar
 
-    - name: Ingeniería Inversa y Renderizado
+    - name: Renderizar diagrama UML a PNG
       run: |
-        # Forzamos a PlantUML a escanear el código y guardar el resultado directamente en la raíz como diagrama.png
-        java -jar plantuml.jar "Modulador/src/" -tpng -output "."
-        
-        # El comando anterior genera un archivo llamado src.png en la raíz. Lo renombramos a diagrama.png de forma segura:
-        if [ -f src.png ]; then
-          mv src.png diagrama.png
-        elif [ -f Modulador/src/src.png ]; then
-          mv Modulador/src/src.png diagrama.png
-        fi
+        # Lee tu archivo de texto dedicado y dibuja el PNG en la raíz
+        java -jar plantuml.jar diagrama.puml -tpng
 
-    - name: Subir cambios al repositorio de GitHub
+    - name: Subir imagen al repositorio
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add diagrama.png || echo "No se pudo añadir el archivo"
-        git commit -m "Bot: Actualización automática del diagrama UML [skip ci]" || echo "No hay cambios en el diagrama"
+        git add diagrama.png
+        git commit -m "Bot: Actualiza imagen del diagrama UML [skip ci]" || echo "No hay cambios en la imagen"
         git push

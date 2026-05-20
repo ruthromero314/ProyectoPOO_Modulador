@@ -1,0 +1,15 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Main {
+  + void main(String[] args)
+}
+
+class Modulador {
+  - double frecuencia
+  - double amplitud
+  + void modularSeñal()
+}
+
+Main --> Modulador : utiliza
+@enduml
