@@ -2,4 +2,4 @@
 
 
 ## Diagrama de Clases UML
-![Diagrama UML del Proyecto](diagrama.png)
+![Diagrama de Clases UML](diagrama.png)

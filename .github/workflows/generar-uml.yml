@@ -1,49 +1,29 @@
-name: Generar UML Automático
-
-on:
-  push:
-    branches:
-      - main
+name: Generar UML
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-    - name: Descargar código del repositorio
-      uses: actions/checkout@v4
-
-    - name: Configurar entorno de Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    - name: Descargar Motor Oficial de PlantUML
-      run: |
-        wget https://github.com/plantuml/plantuml/releases/download/v1.2024.4/plantuml-1.2024.4.jar -O plantuml.jar
-
-    - name: Renderizar diagrama UML a PNG
-      run: |
-        # Busca el archivo .puml en cualquier subcarpeta y lo compila
-        java -jar plantuml.jar $(find . -name "diagrama.puml") -tpng
-
-        # Genera el diagrama. PlantUML creará un archivo llamado diagrama.png basado en diagrama.puml
-        java -jar plantuml.jar diagrama.puml -tpng
+      - uses: actions/checkout@v4
+      - name: Instalar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Descargar PlantUML
+        run: wget https://github.com/plantuml/plantuml/releases/download/v1.2024.4/plantuml-1.2024.4.jar -O plantuml.jar
+      
+      - name: Generar Imagen
+        # Esto guarda el archivo explícitamente en la raíz con el nombre diagrama.png
+        run: java -jar plantuml.jar diagrama.puml -o .
         
-        # Verificamos si se creó correctamente
-        if [ ! -f "diagrama.png" ]; then
-          echo "Error: diagrama.png no fue generado."
-          exit 1
-        fi
-
-    - name: Subir imagen al repositorio
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        # Añadimos el archivo solo si existe
-        git add diagrama.png
-        git commit -m "Bot: Actualiza imagen del diagrama UML [skip ci]" || echo "No hay cambios para subir"
-        git push
+      - name: Subir cambios
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add diagrama.png
+          git commit -m "Actualizar diagrama [skip ci]" || echo "No hay cambios para subir"
+          git push

@@ -1,5 +1,5 @@
 @startuml
-class Prueba {
-  + String nombre
+class Modulador {
+  + void ejecutar()
 }
 @enduml
