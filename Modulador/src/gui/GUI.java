@@ -11,6 +11,16 @@ import moduladore.ModuladorAM;
 import moduladore.ModuladorFM;
 import senales.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Ruth Romero
@@ -73,16 +83,23 @@ public class GUI extends javax.swing.JFrame {
         cbTipoSenal.setBackground(new java.awt.Color(179, 207, 229));
         cbTipoSenal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         cbTipoSenal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senoidal", "Cuadrangular", "Triangular" }));
+        cbTipoSenal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbTipoSenal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoSenalActionPerformed(evt);
             }
         });
 
-        tAmpMod.setBackground(new java.awt.Color(179, 207, 229));
+        tAmpMod.setBackground(new java.awt.Color(10, 25, 49));
+        tAmpMod.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tAmpMod.setForeground(new java.awt.Color(255, 255, 255));
+        tAmpMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tAmpMod.setText("1");
 
-        tFrecMod.setBackground(new java.awt.Color(179, 207, 229));
+        tFrecMod.setBackground(new java.awt.Color(10, 25, 49));
+        tFrecMod.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tFrecMod.setForeground(new java.awt.Color(255, 255, 255));
+        tFrecMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFrecMod.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -99,8 +116,7 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tAmpMod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tFrecMod, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                        .addGap(0, 0, 0))
+                            .addComponent(tFrecMod, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cbTipoSenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -166,7 +182,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bModular, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bResetear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         panelGraficos.setBackground(new java.awt.Color(26, 61, 103));
@@ -194,10 +210,16 @@ public class GUI extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Índice");
 
-        tFrecPort.setBackground(new java.awt.Color(179, 207, 229));
+        tFrecPort.setBackground(new java.awt.Color(10, 25, 49));
+        tFrecPort.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tFrecPort.setForeground(new java.awt.Color(255, 255, 255));
+        tFrecPort.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFrecPort.setText("10");
 
-        tIndice.setBackground(new java.awt.Color(179, 207, 229));
+        tIndice.setBackground(new java.awt.Color(10, 25, 49));
+        tIndice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tIndice.setForeground(new java.awt.Color(255, 255, 255));
+        tIndice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tIndice.setText("0.5");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -229,12 +251,15 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jDesktopPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         bCargarArchivo.setBackground(new java.awt.Color(179, 207, 229));
         bCargarArchivo.setText("CARGAR ARCHIVO");
         bCargarArchivo.setToolTipText("Opcional. Puede cargar un archivo .txt con los datos de la señal. Formato: una columna con las posiciones de la ordenada.");
         bCargarArchivo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCargarArchivoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -293,7 +318,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panelGraficos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -323,6 +348,13 @@ public class GUI extends javax.swing.JFrame {
         senalModuladora = moduladora.getValores();//cargar
         senalPortadora = portadora.getValores();//cargar
         
+        if (senalPersonalizada != null) {// Usar señal personalizada si fue cargada desde archivo
+            senalModuladora = senalPersonalizada;
+        } else {
+            moduladora.generar();
+            senalModuladora = moduladora.getValores();//cargar
+        }
+        
         Modulador modAM = new ModuladorAM(indice);//inicializar modulador AM
         Modulador modFM = new ModuladorFM(indice);//inicializar modulador FM
         
@@ -335,12 +367,86 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bModularActionPerformed
 
     private void bResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetearActionPerformed
-        // TODO add your handling code here:
+    tAmpMod.setText("1");
+    tFrecMod.setText("1");
+    tFrecPort.setText("10");
+    tIndice.setText("0.5");
+    cbTipoSenal.setSelectedIndex(0);
+        
+    jTextPane1.setText("");
+    
+    senalModuladora = null;
+    senalPortadora = null;
+    senalAM = null;
+    senalFM = null;
+    senalPersonalizada = null;
+        
+    Graphics g = panelGraficos.getGraphics();
+    if (g != null) {
+        g.setColor(new Color(26, 61, 103));
+        g.fillRect(0, 0, panelGraficos.getWidth(), panelGraficos.getHeight());
+    }
+        
     }//GEN-LAST:event_bResetearActionPerformed
 
     private void cbTipoSenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSenalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoSenalActionPerformed
+
+    private void bCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarArchivoActionPerformed
+    JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Cargar señal moduladora desde archivo");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt"));
+
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+                List<Double> valores = new ArrayList<>();
+                String linea;
+                int numLinea = 0;
+                while ((linea = br.readLine()) != null) {
+                    numLinea++;
+                    linea = linea.trim();
+                    if (linea.isEmpty()) continue;
+                    try {
+                        valores.add(Double.parseDouble(linea));
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this,
+                            "Error en línea " + numLinea + ": \"" + linea + "\" no es un número válido.",
+                            "Error de formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
+                if (valores.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                        "El archivo está vacío o no contiene valores numéricos.",
+                        "Archivo vacío", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                senalPersonalizada = new double[valores.size()];
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < valores.size(); i++) {
+                    senalPersonalizada[i] = valores.get(i);
+                    sb.append(valores.get(i));
+                    if (i < valores.size() - 1) sb.append("\n");
+                }
+
+                jTextPane1.setText(archivo.getAbsolutePath());
+                JOptionPane.showMessageDialog(this,
+                    "Archivo cargado correctamente: " + valores.size() + " muestras.\n" +
+                    "Al presionar MODULAR se usará esta señal como moduladora.",
+                    "Carga exitosa", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this,
+                    "No se pudo leer el archivo: " + e.getMessage(),
+                    "Error de lectura", JOptionPane.ERROR_MESSAGE);
+            }
+        } 
+    }//GEN-LAST:event_bCargarArchivoActionPerformed
     
     /**
      * @param args the command line arguments
@@ -394,6 +500,7 @@ public class GUI extends javax.swing.JFrame {
     private double[] senalPortadora;
     private double[] senalAM;
     private double[] senalFM;
+    private double[] senalPersonalizada;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
 
