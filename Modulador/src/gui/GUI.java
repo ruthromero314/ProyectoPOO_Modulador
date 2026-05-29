@@ -83,7 +83,7 @@ public class GUI extends javax.swing.JFrame {
         cbTipoSenal.setBackground(new java.awt.Color(179, 207, 229));
         cbTipoSenal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         cbTipoSenal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senoidal", "Cuadrangular", "Triangular" }));
-        cbTipoSenal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbTipoSenal.setBorder(null);
         cbTipoSenal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoSenalActionPerformed(evt);
