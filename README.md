@@ -3,7 +3,7 @@
 Aplicación de escritorio desarrollada en Java que genera diferentes tipos de señales (senoidal, cuadrada, triangular) y aplica modulación en **Amplitud (AM)** y **Frecuencia (FM)**. Permite visualizar simultáneamente la señal moduladora, portadora y las dos señales moduladas.
 
 ## GUI
-![Diagrama de Clases UML](GUI2.png)
+![Diagrama de Clases UML](GUI3.png)
 
 ## Características
 
