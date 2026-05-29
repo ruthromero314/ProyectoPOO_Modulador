@@ -21,11 +21,9 @@ Aplicación de escritorio desarrollada en Java que genera diferentes tipos de se
 7. Pulsar RESETEAR para limpiar.
 
 Formato del archivo de texto
-    Extensión .txt.
-
-    Un valor numérico por línea (ej. 0.5, -1.2, 3.14).
-
-    Se pueden usar puntos decimales, no comas.
+- Extensión .txt.
+- Un valor numérico por línea (ej. 0.5, -1.2, 3.14).
+- Se pueden usar puntos decimales, no comas.
 
 ## Características
 
