@@ -1,6 +1,8 @@
 # Proyecto POO - Modulador
+## Descripción General
+El Simulador de Modulación AM/FM es una aplicación de escritorio desarrollada en Java con interfaz gráfica Swing. Permite al usuario generar, visualizar y comparar señales moduladas en amplitud (AM) y en frecuencia (FM) a partir de distintos tipos de señales moduladoras.
 
-Aplicación de escritorio desarrollada en Java que genera diferentes tipos de señales (senoidal, cuadrada, triangular) y aplica modulación en **Amplitud (AM)** y **Frecuencia (FM)**. Permite visualizar simultáneamente la señal moduladora, portadora y las dos señales moduladas.
+La aplicación fue desarrollada aplicando los principios de la Programación Orientada a Objetos: herencia, abstracción, encapsulamiento y polimorfismo.
 
 ## Lenguaje Unificado de Modelado (UML)
 ![UML](UML.png)
