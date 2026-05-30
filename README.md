@@ -3,7 +3,7 @@
 Aplicación de escritorio desarrollada en Java que genera diferentes tipos de señales (senoidal, cuadrada, triangular) y aplica modulación en **Amplitud (AM)** y **Frecuencia (FM)**. Permite visualizar simultáneamente la señal moduladora, portadora y las dos señales moduladas.
 
 ## Interfaz Gráfica de Usuario
-![Diagrama de Clases UML](GUI3.png)
+![Interfaz Gráfica de Usuario](GUI4.png)
 
 ## Manual de usuario
 1. Seleccionar tipo de señal moduladora en el desplegable.
@@ -18,7 +18,9 @@ Aplicación de escritorio desarrollada en Java que genera diferentes tipos de se
 
 6. Observar las cuatro señales dibujadas en el panel derecho.
 
-7. Pulsar RESETEAR para limpiar.
+7. Guarda las señales como PNG o txt.
+
+8. Pulsar RESETEAR para limpiar.
 
 Formato del archivo de texto
 - Extensión .txt.
@@ -36,6 +38,7 @@ Formato del archivo de texto
 - Carga de señal moduladora personalizada desde archivo `.txt`.
 - Visualización gráfica en tiempo real con colores distintivos.
 - Interfaz gráfica intuitiva (Swing).
+- Exportación de datos como PNG y txt.
 - Botón de reset para restablecer todos los parámetros.
 
 ## Páginas de interés

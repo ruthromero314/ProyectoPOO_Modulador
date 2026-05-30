@@ -6,11 +6,6 @@
 package gui;
 import java.awt.Graphics;
 import java.awt.Color;
-import moduladore.Modulador;
-import moduladore.ModuladorAM;
-import moduladore.ModuladorFM;
-import senales.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,6 +15,12 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import moduladore.Modulador;
+import moduladore.ModuladorAM;
+import moduladore.ModuladorFM;
+import senales.*;
+import paraExportar.Graficador;
+import paraExportar.ExportadorDatos;
 
 /**
  * Interfaz gráfica principal del simulador de modulación AM/FM.
@@ -29,6 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Ruth Romero
  */
 public class GUI extends javax.swing.JFrame {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
     
     /**
      * Creates new form GUI
@@ -55,6 +57,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         bModular = new javax.swing.JButton();
         bResetear = new javax.swing.JButton();
+        bImprimirTXT = new javax.swing.JButton();
+        bImprimirPNG = new javax.swing.JButton();
         panelGraficos = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -116,7 +120,7 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tAmpMod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tFrecMod, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
@@ -145,10 +149,8 @@ public class GUI extends javax.swing.JFrame {
 
         bModular.setBackground(new java.awt.Color(26, 61, 103));
         bModular.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        bModular.setForeground(new java.awt.Color(204, 204, 204));
+        bModular.setForeground(new java.awt.Color(255, 255, 255));
         bModular.setText("MODULAR");
-        bModular.setToolTipText("");
-        bModular.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bModular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bModularActionPerformed(evt);
@@ -157,13 +159,27 @@ public class GUI extends javax.swing.JFrame {
 
         bResetear.setBackground(new java.awt.Color(74, 127, 167));
         bResetear.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        bResetear.setForeground(new java.awt.Color(204, 204, 204));
+        bResetear.setForeground(new java.awt.Color(255, 255, 255));
         bResetear.setText("RESETEAR");
-        bResetear.setToolTipText("");
-        bResetear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bResetear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bResetearActionPerformed(evt);
+            }
+        });
+
+        bImprimirTXT.setBackground(new java.awt.Color(74, 127, 167));
+        bImprimirTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/diskette.png"))); // NOI18N
+        bImprimirTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bImprimirTXTActionPerformed(evt);
+            }
+        });
+
+        bImprimirPNG.setBackground(new java.awt.Color(74, 127, 167));
+        bImprimirPNG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/camera (1).png"))); // NOI18N
+        bImprimirPNG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bImprimirPNGActionPerformed(evt);
             }
         });
 
@@ -172,20 +188,27 @@ public class GUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bModular, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bModular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bResetear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bResetear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(bImprimirTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bImprimirPNG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bModular, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bResetear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bImprimirPNG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(bModular, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bResetear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bImprimirTXT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         panelGraficos.setBackground(new java.awt.Color(26, 61, 103));
@@ -195,7 +218,7 @@ public class GUI extends javax.swing.JFrame {
         panelGraficos.setLayout(panelGraficosLayout);
         panelGraficosLayout.setHorizontalGroup(
             panelGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1017, Short.MAX_VALUE)
+            .addGap(0, 1025, Short.MAX_VALUE)
         );
         panelGraficosLayout.setVerticalGroup(
             panelGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +280,6 @@ public class GUI extends javax.swing.JFrame {
         bCargarArchivo.setBackground(new java.awt.Color(179, 207, 229));
         bCargarArchivo.setText("CARGAR ARCHIVO");
         bCargarArchivo.setToolTipText("Opcional. Puede cargar un archivo .txt con los datos de la señal. Formato: una columna con las posiciones de la ordenada.");
-        bCargarArchivo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCargarArchivoActionPerformed(evt);
@@ -310,7 +332,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addComponent(panelGraficos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +419,17 @@ public class GUI extends javax.swing.JFrame {
         //modular FM
         senalFM = modFM.modular(senalPortadora,senalModuladora,portadora.getTiempo());
         
-        dibujarSenales();
+        dibujante.setDatosSenales(senalModuladora, senalPortadora, senalAM, senalFM);
+        dibujante.setParametrosModuladora(A, fm, (String)cbTipoSenal.getSelectedItem(), 
+                                         (senalPersonalizada != null), 
+                                         (senalPersonalizada != null ? new File(jTextPane1.getText()).getName() : null));
+        dibujante.setParametrosPortadora(fc);
+        dibujante.setIndiceModulacion(indice);
+        
+        Graphics g = panelGraficos.getGraphics();
+        if (g != null) {
+            dibujante.dibujar(g, panelGraficos.getWidth(), panelGraficos.getHeight());
+        }
     }//GEN-LAST:event_bModularActionPerformed
     /**
      * Restablece todos los controles a sus valores por defecto:
@@ -434,11 +466,7 @@ public class GUI extends javax.swing.JFrame {
     }
         
     }//GEN-LAST:event_bResetearActionPerformed
-    
-    private void cbTipoSenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSenalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbTipoSenalActionPerformed
-    /**
+        /**
     * Abre un selector de archivos para cargar una señal moduladora personalizada.
     * El archivo debe ser de texto (.txt) y contener un número real por línea.
     * Si el formato es correcto, se almacena en {@code senalPersonalizada}
@@ -500,6 +528,19 @@ public class GUI extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_bCargarArchivoActionPerformed
+
+    private void bImprimirTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bImprimirTXTActionPerformed
+        ExportadorDatos.exportar("Guardar señal AM", senalAM, this);
+        ExportadorDatos.exportar("Guardar señal FM", senalFM, this);
+    }//GEN-LAST:event_bImprimirTXTActionPerformed
+
+    private void bImprimirPNGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bImprimirPNGActionPerformed
+        dibujante.exportarPNG(this);
+    }//GEN-LAST:event_bImprimirPNGActionPerformed
+
+    private void cbTipoSenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSenalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoSenalActionPerformed
     
     /**
     * Punto de entrada de la aplicación. Configura el Look and Feel Nimbus
@@ -531,6 +572,8 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCargarArchivo;
+    private javax.swing.JButton bImprimirPNG;
+    private javax.swing.JButton bImprimirTXT;
     private javax.swing.JButton bModular;
     private javax.swing.JButton bResetear;
     private javax.swing.JComboBox<String> cbTipoSenal;
@@ -558,73 +601,6 @@ public class GUI extends javax.swing.JFrame {
     private double[] senalFM;
     private double[] senalPersonalizada;
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
-    /**
-    * Dibuja las cuatro señales (moduladora, portadora, AM y FM) apiladas
-    * verticalmente con diferentes colores y un offset en Y.
-    * Utiliza el objeto Graphics del panel {@code panelGraficos}.
-    */
-    private void dibujarSenales() {
-        Graphics g = panelGraficos.getGraphics();
-
-        int w = panelGraficos.getWidth();
-        int h = panelGraficos.getHeight();
-
-        //fondo blanco
-        g.setColor(Color.decode("#1A3D67"));
-        g.fillRect(0, 0, w, h);
-
-        //separación entre señales
-        int separacion = 100;
-
-        //títulos
-        g.setColor(Color.BLACK);
-
-        dibujar(g, senalModuladora, 40, Color.decode("#F04770"));
-        g.drawString("Moduladora", 20, 10);
-        
-        dibujar(g, senalPortadora, 40 + separacion, Color.decode("#F78C6A"));
-        g.drawString("Portadora", 20, 10 + separacion);
-
-        dibujar(g, senalAM, 40 + separacion * 2, Color.decode("#FFD167"));
-        g.drawString("AM", 20, 10 + separacion * 2);
-
-        dibujar(g, senalFM, 40 + separacion * 3, Color.decode("#06D7A0"));
-        g.drawString("FM", 20, 10 + separacion * 3);
-    }
-    /**
-    * Dibuja una única señal en el contexto gráfico dado.
-    * 
-    * @param g      Objeto Graphics del panel.
-    * @param datos  Arreglo con los valores de la señal.
-    * @param offsetY Desplazamiento vertical desde la parte superior.
-    * @param color  Color con el que se dibuja la línea.
-    */
-    private void dibujar(Graphics g, double[] datos, int offsetY, Color color) {
-        int w = panelGraficos.getWidth();
-
-        //eje horizontal
-        g.setColor(Color.LIGHT_GRAY);
-        g.drawLine(0, offsetY, w, offsetY);
-
-        //señal
-        g.setColor(color);
-
-        int escalaY = 20;
-
-        int prevX = 0;
-        int prevY = offsetY;
-
-        for (int i = 0; i < datos.length; i++) {
-
-            int x = i * w / datos.length;
-            int y = offsetY - (int)(datos[i] * escalaY);
-
-            g.drawLine(prevX, prevY, x, y);
-
-            prevX = x;
-            prevY = y;
-        }
-    }
+    private final Graficador dibujante = new Graficador();
     
 }
