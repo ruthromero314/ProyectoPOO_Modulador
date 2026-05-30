@@ -5,6 +5,9 @@ Aplicación de escritorio desarrollada en Java que genera diferentes tipos de se
 ## Interfaz Gráfica de Usuario
 ![Interfaz Gráfica de Usuario](GUI4.png)
 
+## Gráfico exportado
+![Gráfico exportado](grafico_senales.png)
+
 ## Manual de usuario
 1. Seleccionar tipo de señal moduladora en el desplegable.
 
