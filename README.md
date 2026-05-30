@@ -5,7 +5,7 @@ El Simulador de Modulación AM/FM es una aplicación de escritorio desarrollada 
 La aplicación fue desarrollada aplicando los principios de la Programación Orientada a Objetos: herencia, abstracción, encapsulamiento y polimorfismo.
 
 ## Lenguaje Unificado de Modelado (UML)
-![UML](UML.png)
+![UML](UML1.png)
 
 ## Interfaz Gráfica de Usuario
 ![Interfaz Gráfica de Usuario](GUI4.png)
