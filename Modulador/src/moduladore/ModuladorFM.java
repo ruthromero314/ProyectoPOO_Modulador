@@ -5,16 +5,31 @@
 package moduladore;
 
 /**
- *
+ * Modulador en Frecuencia (FM). Implementa la fórmula:
+ * señal_FM = cos(2*PI*fc*t + k * ∫moduladora dt),
+ * donde k es la sensibilidad del modulador.
+ * 
  * @author Ruth Romero
  */
 public class ModuladorFM extends Modulador {
     private double k;
-
+    /**
+    * Constructor del modulador FM.
+    * 
+    * @param k Constante de sensibilidad (desviación de frecuencia).
+    */
     public ModuladorFM(double k) {
         this.k=k;
     }
-    
+    /**
+    * Aplica modulación en frecuencia. Primero calcula la integral acumulativa
+    * de la señal moduladora y luego genera la salida cosenoidal.
+    * 
+    * @param portadora   Señal portadora (solo se usa la amplitud implícitamente).
+    * @param moduladora  Señal moduladora.
+    * @param tiempo      Instantes de tiempo para calcular la fase.
+    * @return            Señal modulada en FM.
+    */
     @Override
     public double[] modular(double[] portadora, double[] moduladora, double[] tiempo) {
         int N = Math.min(portadora.length, moduladora.length);

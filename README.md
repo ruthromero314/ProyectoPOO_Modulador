@@ -38,3 +38,5 @@ Formato del archivo de texto
 - Interfaz gráfica intuitiva (Swing).
 - Botón de reset para restablecer todos los parámetros.
 
+## Páginas de interés
+- Para entender **¿Cuál es la diferencia entre AM y FM?** visitar: https://es.fmuser.net/content/?953.html

@@ -5,17 +5,31 @@
 package moduladore;
 
 /**
- *
+ * Modulador en Amplitud (AM). Implementa la fórmula:
+ * señal_AM = (1 + m * moduladora) * portadora,
+ * donde m es el índice de modulación.
+ * 
  * @author Ruth Romero
  */
 public class ModuladorAM extends Modulador {
 
     private double m;
-
+    /**
+    * Constructor del modulador AM.
+    * 
+    * @param m Índice de modulación (entre 0 y 1 normalmente).
+    */
     public ModuladorAM(double m) {
         this.m = m;
     }
-
+    /**
+    * Aplica modulación en amplitud a las señales proporcionadas.
+    * 
+    * @param portadora   Señal portadora (generalmente senoidal de alta frecuencia).
+    * @param moduladora  Señal moduladora (información).
+    * @param tiempo      No utilizado en AM, se incluye por compatibilidad.
+    * @return            Señal modulada en AM.
+    */
     @Override
     public double[] modular(double[] portadora, double[] moduladora, double[] tiempo) {
         int N = Math.min(portadora.length, moduladora.length);

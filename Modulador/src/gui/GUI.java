@@ -22,7 +22,10 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
+ * Interfaz gráfica principal del simulador de modulación AM/FM.
+ * Permite seleccionar el tipo de señal moduladora, ajustar parámetros,
+ * cargar señales desde archivo, visualizar las cuatro señales y resetear.
+ * 
  * @author Ruth Romero
  */
 public class GUI extends javax.swing.JFrame {
@@ -93,14 +96,14 @@ public class GUI extends javax.swing.JFrame {
         tAmpMod.setBackground(new java.awt.Color(10, 25, 49));
         tAmpMod.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tAmpMod.setForeground(new java.awt.Color(255, 255, 255));
+        tAmpMod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.#"))));
         tAmpMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tAmpMod.setText("1");
 
         tFrecMod.setBackground(new java.awt.Color(10, 25, 49));
         tFrecMod.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tFrecMod.setForeground(new java.awt.Color(255, 255, 255));
+        tFrecMod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.#"))));
         tFrecMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tFrecMod.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,14 +216,14 @@ public class GUI extends javax.swing.JFrame {
         tFrecPort.setBackground(new java.awt.Color(10, 25, 49));
         tFrecPort.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tFrecPort.setForeground(new java.awt.Color(255, 255, 255));
+        tFrecPort.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.#"))));
         tFrecPort.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tFrecPort.setText("10");
 
         tIndice.setBackground(new java.awt.Color(10, 25, 49));
         tIndice.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tIndice.setForeground(new java.awt.Color(255, 255, 255));
+        tIndice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.#"))));
         tIndice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tIndice.setText("0.5");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -324,14 +327,45 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+    * Maneja el evento del botón MODULAR. Lee los parámetros de los campos,
+    * genera la señal moduladora (ya sea senoidal, cuadrada, triangular o
+    * la cargada desde archivo), genera la portadora, aplica modulación AM y FM,
+    * y finalmente dibuja las cuatro señales en el panel.
+    * 
+    * @param evt Evento de acción.
+    */
     private void bModularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModularActionPerformed
         // TODO add your handling code here:
-        double A = Double.parseDouble(tAmpMod.getText());
-        double fm = Double.parseDouble(tFrecMod.getText());
-        double fc = Double.parseDouble(tFrecPort.getText());
-        double indice = Double.parseDouble(tIndice.getText());
+        String strAmp = tAmpMod.getText().trim().replace(',', '.');
+        String strFm = tFrecMod.getText().trim().replace(',', '.');
+        String strFc = tFrecPort.getText().trim().replace(',', '.');
+        String strIndice = tIndice.getText().trim().replace(',', '.');
 
+        double A;
+        double fm;
+        double fc;
+        double indice;
+        
+        try {
+            A = Double.parseDouble(strAmp);
+            fm = Double.parseDouble(strFm);
+            fc = Double.parseDouble(strFc);
+            indice = Double.parseDouble(strIndice);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                "Por favor, ingrese números válidos (use punto o coma decimal).",
+                "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (A < 0 || fm < 0 || fc < 0 || indice < 0) {
+            JOptionPane.showMessageDialog(this,
+                "No se permiten valores negativos.\nTodos los campos deben ser >= 0.",
+                "Valor inválido", JOptionPane.WARNING_MESSAGE);
+            return; // Salir sin modular
+        }
+        
         Senal moduladora;//inicializar
         moduladora = switch (cbTipoSenal.getSelectedIndex()) {
             case 0 -> new SenalSenoidal(A, fm);
@@ -365,7 +399,19 @@ public class GUI extends javax.swing.JFrame {
         
         dibujarSenales();
     }//GEN-LAST:event_bModularActionPerformed
-
+    /**
+     * Restablece todos los controles a sus valores por defecto:
+     * - Amplitud moduladora = 1
+     * - Frecuencia moduladora = 1
+     * - Frecuencia portadora = 10
+     * - Índice de modulación = 0.5
+     * - Tipo de señal = Senoidal
+     * - Limpia el área de texto del archivo cargado
+     * - Borra las señales almacenadas
+     * - Limpia el panel de gráficos con el color de fondo.
+     * 
+     * @param evt Evento de acción.
+     */
     private void bResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetearActionPerformed
     tAmpMod.setText("1");
     tFrecMod.setText("1");
@@ -388,11 +434,18 @@ public class GUI extends javax.swing.JFrame {
     }
         
     }//GEN-LAST:event_bResetearActionPerformed
-
+    
     private void cbTipoSenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSenalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoSenalActionPerformed
-
+    /**
+    * Abre un selector de archivos para cargar una señal moduladora personalizada.
+    * El archivo debe ser de texto (.txt) y contener un número real por línea.
+    * Si el formato es correcto, se almacena en {@code senalPersonalizada}
+    * y se muestra la ruta en el área de texto.
+    * 
+    * @param evt Evento de acción.
+    */
     private void bCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarArchivoActionPerformed
     JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Cargar señal moduladora desde archivo");
@@ -449,8 +502,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bCargarArchivoActionPerformed
     
     /**
-     * @param args the command line arguments
-     */
+    * Punto de entrada de la aplicación. Configura el Look and Feel Nimbus
+    * (si está disponible) y lanza la ventana principal.
+    * 
+    * @param args Argumentos de línea de comandos (no utilizados).
+    */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -503,7 +559,11 @@ public class GUI extends javax.swing.JFrame {
     private double[] senalPersonalizada;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
-
+    /**
+    * Dibuja las cuatro señales (moduladora, portadora, AM y FM) apiladas
+    * verticalmente con diferentes colores y un offset en Y.
+    * Utiliza el objeto Graphics del panel {@code panelGraficos}.
+    */
     private void dibujarSenales() {
         Graphics g = panelGraficos.getGraphics();
 
@@ -532,7 +592,14 @@ public class GUI extends javax.swing.JFrame {
         dibujar(g, senalFM, 40 + separacion * 3, Color.decode("#06D7A0"));
         g.drawString("FM", 20, 10 + separacion * 3);
     }
-    
+    /**
+    * Dibuja una única señal en el contexto gráfico dado.
+    * 
+    * @param g      Objeto Graphics del panel.
+    * @param datos  Arreglo con los valores de la señal.
+    * @param offsetY Desplazamiento vertical desde la parte superior.
+    * @param color  Color con el que se dibuja la línea.
+    */
     private void dibujar(Graphics g, double[] datos, int offsetY, Color color) {
         int w = panelGraficos.getWidth();
 
